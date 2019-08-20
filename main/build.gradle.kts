@@ -2,8 +2,12 @@
  * Copyright (c) 2012-2016 Arne Schwabe
  * Distributed under the GNU GPL v2 with additional terms. For full terms see the file doc/LICENSE.txt
  */
+//import org.gradle.internal.component.external.model.ComponentVariant
+import org.gradle.internal.component.external.model
 import java.util.Properties
 
+var kotlin_version: String by extra
+kotlin_version = "1.3.41"
 plugins {
     id("com.android.application")
     id("checkstyle")
@@ -21,6 +25,7 @@ repositories {
 }
 
 
+//val openvpn3SwigFiles = File(buildDir, "generated/source/ovpn3swig/ovpn3")
 val openvpn3SwigFiles = File(buildDir, "generated/source/ovpn3swig/ovpn3")
 
 tasks.register<Exec>("generateOpenVPN3Swig")
@@ -28,8 +33,8 @@ tasks.register<Exec>("generateOpenVPN3Swig")
     var swigcmd = "swig"
     // Workaround for Mac OS X since it otherwise does not find swig and I cannot get
     // the Exec task to respect the PATH environment :(
-    if (File("/usr/local/bin/swig").exists())
-        swigcmd = "/usr/local/bin/swig"
+//    if (File("/usr/local/bin/swig").exists())
+//        swigcmd = "/usr/local/bin/swig"
 
     doFirst {
         mkdir(openvpn3SwigFiles)
@@ -41,11 +46,11 @@ tasks.register<Exec>("generateOpenVPN3Swig")
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(29)
 
     defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(28)  //'Q'.toInt()
+        minSdkVersion(19)
+        targetSdkVersion(29)  //'Q'.toInt()
         versionCode = 161
         versionName = "0.7.8"
 
@@ -122,7 +127,8 @@ android {
         abi {
             setEnable(true)
             reset()
-            include("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
+            //include("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
+            include("x86_64", "armeabi-v7a")
             setUniversalApk(true)
 
         }
@@ -155,20 +161,23 @@ preBuildTask.dependsOn(swigTask)
 
 /* Normally you would put these on top but then it errors out on unknown configurations */
 dependencies {
-    implementation("com.android.support:support-annotations:28.0.0")
-    implementation("com.android.support:support-core-utils:28.0.0")
+//    implementation("com.android.support:support-annotations:28.0.0")
+//    implementation("com.android.support:support-core-utils:28.0.0")
+    implementation("androidx.annotation:annotation:1.0.0")
+    implementation("androidx.legacy:legacy-support-core-utils:1.0.0")
 
     // Is there a nicer way to do this?
-    dependencies.add("uiImplementation", "com.android.support.constraint:constraint-layout:1.1.3")
     dependencies.add("uiImplementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.40")
-    dependencies.add("uiImplementation","com.android.support.constraint:constraint-layout:1.1.3")
-    dependencies.add("uiImplementation","com.android.support:cardview-v7:28.0.0")
-    dependencies.add("uiImplementation","com.android.support:recyclerview-v7:28.0.0")
+    dependencies.add("uiImplementation","androidx.constraintlayout:constraintlayout:1.1.2")
+    dependencies.add("uiImplementation","androidx.cardview:cardview:1.0.0")
+    dependencies.add("uiImplementation","androidx.recyclerview:recyclerview:1.0.0")
     dependencies.add("uiImplementation","com.github.PhilJay:MPAndroidChart:v3.0.2")
 
 
     testImplementation("junit:junit:4.12")
     testImplementation("org.mockito:mockito-core:3.0.0")
     testImplementation("org.robolectric:robolectric:4.3")
+    //implementation(kotlinModule("stdlib-jdk8", kotlin_version))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
 }
 
