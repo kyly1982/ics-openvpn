@@ -1,13 +1,14 @@
+
 /*
  * Copyright (c) 2012-2016 Arne Schwabe
  * Distributed under the GNU GPL v2 with additional terms. For full terms see the file doc/LICENSE.txt
  */
 //import org.gradle.internal.component.external.model.ComponentVariant
-import org.gradle.internal.component.external.model
 import java.util.Properties
 
 var kotlin_version: String by extra
 kotlin_version = "1.3.41"
+
 plugins {
     id("com.android.application")
     id("checkstyle")
@@ -25,7 +26,6 @@ repositories {
 }
 
 
-//val openvpn3SwigFiles = File(buildDir, "generated/source/ovpn3swig/ovpn3")
 val openvpn3SwigFiles = File(buildDir, "generated/source/ovpn3swig/ovpn3")
 
 tasks.register<Exec>("generateOpenVPN3Swig")
@@ -161,23 +161,22 @@ preBuildTask.dependsOn(swigTask)
 
 /* Normally you would put these on top but then it errors out on unknown configurations */
 dependencies {
-//    implementation("com.android.support:support-annotations:28.0.0")
-//    implementation("com.android.support:support-core-utils:28.0.0")
     implementation("androidx.annotation:annotation:1.0.0")
     implementation("androidx.legacy:legacy-support-core-utils:1.0.0")
+    implementation("androidx.constraintlayout:constraintlayout:1.1.2")
+    implementation("androidx.viewpager:viewpager:1.0.0")
+    implementation("androidx.fragment.app.FragmentStatePagerAdapter:FragmentStatePagerAdapter:1.0.0")
 
     // Is there a nicer way to do this?
-    dependencies.add("uiImplementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.40")
-    dependencies.add("uiImplementation","androidx.constraintlayout:constraintlayout:1.1.2")
+    //dependencies.add("uiImplementation","androidx.constraintlayout:constraintlayout:1.1.2")
     dependencies.add("uiImplementation","androidx.cardview:cardview:1.0.0")
     dependencies.add("uiImplementation","androidx.recyclerview:recyclerview:1.0.0")
     dependencies.add("uiImplementation","com.github.PhilJay:MPAndroidChart:v3.0.2")
 
 
-    testImplementation("junit:junit:4.12")
-    testImplementation("org.mockito:mockito-core:3.0.0")
-    testImplementation("org.robolectric:robolectric:4.3")
-    //implementation(kotlinModule("stdlib-jdk8", kotlin_version))
+    //testImplementation("junit:junit:4.12")
+    //testImplementation("org.mockito:mockito-core:3.0.0")
+    //testImplementation("org.robolectric:robolectric:4.3")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
 }
 

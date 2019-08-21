@@ -12,10 +12,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.4.2")
-        //classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.11")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.41")
-        //classpath(kotlinModule("gradle-plugin", kotlin_version))
+        classpath("com.android.tools.build:gradle:3.5.0")//原始为3.4.2,将升级到3.5.0
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")   //classpath(kotlinModule("gradle-plugin", kotlin_version)
     }
 }
 

@@ -22,7 +22,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
@@ -33,7 +32,7 @@ import android.widget.EditText;
 
 import java.io.IOException;
 
-import de.blinkt.openvpn.activities.LogWindow;
+import de.blinkt.openvpn.activities.LogWindowA;
 import de.blinkt.openvpn.api.ExternalAppDatabase;
 import de.blinkt.openvpn.core.ConnectionStatus;
 import de.blinkt.openvpn.core.IServiceStatus;
@@ -268,7 +267,7 @@ public class LaunchVPN extends Activity {
 
     void showLogWindow() {
 
-        Intent startLW = new Intent(getBaseContext(), LogWindow.class);
+        Intent startLW = new Intent(getBaseContext(), LogWindowA.class);
         startLW.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(startLW);
 

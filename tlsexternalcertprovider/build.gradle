@@ -11,10 +11,6 @@ repositories {
     maven { url 'https://maven.google.com' }
 }
 
-ext {
-    bouncycastleVersion = '1.49'
-}
-
 android {
     compileSdkVersion 29
 
@@ -46,6 +42,10 @@ android {
     lintOptions {
         abortOnError false
     }
+}
+
+ext {
+    bouncycastleVersion = '1.49'    //原有版本为1.49,最新1.62
 }
 
 dependencies {

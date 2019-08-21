@@ -16,7 +16,7 @@
         android:banner="@mipmap/banner_tv"
         >
     <activity
-        android:name=".activities.MainActivity"
+        android:name=".activities.MainActivityB"
         tools:ignore="ExportedActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
